@@ -1,0 +1,91 @@
+// Particle Photons are programmed over the air, so it is recommended that it is kept by the router to which it is connecting. 
+//Particle Photon code for the Vibration Actuator with button. // This can be any vibration actuator, you can set the IP address of this Particle Photon in the Main Application Code after setting it up in the router.
+//This code is uploaded to only one of the Vibration Actuators
+
+
+
+SYSTEM_MODE(SEMI_AUTOMATIC); //  running Particle Photon in SEMI_Automatic Mode. This means the Particle Photon will only connect to WiFi and not to the Particle Cloud. This means we will use only wifi and not internet
+
+//Setup Variable
+TCPClient client;                    
+byte server[] = { 192, 168, 0, 102 }; // This is the address of the server (main application)
+byte c;                             // This will hold the data coming from the server
+int port = 5555;                // Port number for Client Server communication
+int led = D7;                   // pin D7 is directly connected to the tiny LED on the Particle Photon. useful for debugging
+int button = D6;                // D6 is where the button will be connected
+char vibrationOn = 1;           //Variables to Send On/Off signals to the server
+char vibrationOff = 0;
+bool isSwitchStatusSent = false; 
+
+int motor = A4;                 // the motor is connected to pin A4
+uint8_t distance = 0;
+int motorVal = 0;               // variable used to send signal to the motor
+int buttonVal = 0;              // Variable used to read value from the button pin
+
+// Setup runs once
+void setup()
+{
+  
+  WiFi.connect();               // Connect to WiFi with the credentials set on the Particle Photon // The WiFi Credentials are set on the Particle Photon
+  
+  // Make sure your Serial Terminal app is closed before powering your Photon
+  Serial.begin(9600);           // begin serial communication
+  delay(1000);                  // wait for 1 sec. 
+  
+  //Setup the pinmodes
+  pinMode(led, OUTPUT);         //led pin D7 is output
+  pinMode(motor, OUTPUT);       //motor pin A0 is output
+  pinMode(button, INPUT);       //button pin D6 is input
+  
+  
+  // Now open your Serial Terminal, and hit any key to continue!
+  //while(!Serial.available()) SPARK_WLAN_Loop(); //  Uncomment when debugging the Particle Photon over serial
+
+  Serial.println("connecting...");
+
+  if (client.connect(server, port))   // Connect to the server
+  {
+    Serial.println("connected");
+    delay(5000);                        // wait 5 seconds
+    RGB.control(true);                  // Get control to the RGB LED on the Particle Photon
+    client.flush();                     // Flush client buffer  and clean all unread data
+
+  }
+  else
+  {
+    Serial.println("connection failed");
+    System.sleep(SLEEP_MODE_DEEP, 2);     //If server connection fails, Put Particle Photon in Deep Sleep for 2 seconds, it resets after 2 seconds
+                                        // we use System.sleep() instead of System.reset() as it does not freeze the Photon and has a better chance of connecting back to the server.
+  }
+}
+
+//Loop Keeps on Running
+void loop()
+{
+  if (client.available())                            //Check for data availability from server to read.
+  {
+    char c = client.read();                         // read the data
+    //Serial.println(c);
+    distance = (uint8_t)c;                          
+    Serial.println(distance);
+    RGB.color(distance, 0, 255 - distance );        // write the data to rgb led to show a gradient from blue to red based on the distance
+    analogWrite(motor, distance);                   // write the data to the motor
+    buttonVal = digitalRead(button);                // read the data from the motor
+    if(buttonVal == 1)
+    {
+        client.write(vibrationOff);                 // send the Vibration On/Off to the server based on the value of the button. // the button is a Latching Switch
+    }
+    else
+    {
+        client.write(vibrationOn);
+    }
+  }
+ 
+
+  if (!client.connected())
+  {
+      System.sleep(SLEEP_MODE_DEEP, 2);            //If the client looses connection, reset the Photon. 
+   //Serial.println();
+    //Serial.println("disconnecting.");
+  }
+}
