@@ -54,8 +54,8 @@ void setup()
   else
   {
     Serial.println("connection failed");
-    System.sleep(SLEEP_MODE_DEEP, 2);     //If server connection fails, Put Particle Core in Deep Sleep for 2 seconds, it resets after 2 seconds
-                                        // we use System.sleep() instead of System.reset() as it does not freeze the core and has a better chance of connecting back to the server.
+    Spark.sleep(SLEEP_MODE_DEEP, 2);     //If server connection fails, Put Particle Core in Deep Sleep for 2 seconds, it resets after 2 seconds
+                                        // we use Spark.sleep() instead of Spark.reset() as it does not freeze the core and has a better chance of connecting back to the server.
   }
 }
 
@@ -84,7 +84,7 @@ void loop()
 
   if (!client.connected())
   {
-      System.sleep(SLEEP_MODE_DEEP, 2);            //If the client looses connection, reset the core. 
+      Spark.sleep(SLEEP_MODE_DEEP, 2);            //If the client looses connection, reset the core. 
    //Serial.println();
     //Serial.println("disconnecting.");
   }
