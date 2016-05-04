@@ -78,11 +78,11 @@
     <ClCompile>
       <AdditionalIncludeDirectories>..\include;$(CINDER_ROOT)\include;..\thirdparty\librealsense\include;..\blocks\OSC\src;$(OPENCV_ROOT)\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WIN32_WINNT=0x0601;_WINDOWS;NOMINMAX;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
@@ -106,7 +106,11 @@
   <ItemGroup>
     <ResourceCompile Include="Resources.rc" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\thirdparty\librealsense\librealsense.vc12\realsense-s\realsense-s.vcxproj">
+      <Project>{622186c4-6d7d-4288-b8fd-8f08419181c2}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <ClCompile Include="..\blocks\OSC\src\ip\IpEndpointName.cpp" />
