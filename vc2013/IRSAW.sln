@@ -1,0 +1,43 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IRSAW", "IRSAW.vcxproj", "{9EC45339-59D6-468C-99AD-B9B96C2DE691}"
+	ProjectSection(ProjectDependencies) = postProject
+		{622186C4-6D7D-4288-B8FD-8F08419181C2} = {622186C4-6D7D-4288-B8FD-8F08419181C2}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "thirdparty", "thirdparty", "{2FA51773-354F-4B9C-80C9-9152102A80EA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "realsense-s", "..\thirdparty\librealsense\librealsense.vc12\realsense-s\realsense-s.vcxproj", "{622186C4-6D7D-4288-B8FD-8F08419181C2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9EC45339-59D6-468C-99AD-B9B96C2DE691}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9EC45339-59D6-468C-99AD-B9B96C2DE691}.Debug|Win32.Build.0 = Debug|Win32
+		{9EC45339-59D6-468C-99AD-B9B96C2DE691}.Debug|x64.ActiveCfg = Debug|Win32
+		{9EC45339-59D6-468C-99AD-B9B96C2DE691}.Release|Win32.ActiveCfg = Release|Win32
+		{9EC45339-59D6-468C-99AD-B9B96C2DE691}.Release|Win32.Build.0 = Release|Win32
+		{9EC45339-59D6-468C-99AD-B9B96C2DE691}.Release|x64.ActiveCfg = Release|Win32
+		{622186C4-6D7D-4288-B8FD-8F08419181C2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{622186C4-6D7D-4288-B8FD-8F08419181C2}.Debug|Win32.Build.0 = Debug|Win32
+		{622186C4-6D7D-4288-B8FD-8F08419181C2}.Debug|x64.ActiveCfg = Debug|x64
+		{622186C4-6D7D-4288-B8FD-8F08419181C2}.Debug|x64.Build.0 = Debug|x64
+		{622186C4-6D7D-4288-B8FD-8F08419181C2}.Release|Win32.ActiveCfg = Release|Win32
+		{622186C4-6D7D-4288-B8FD-8F08419181C2}.Release|Win32.Build.0 = Release|Win32
+		{622186C4-6D7D-4288-B8FD-8F08419181C2}.Release|x64.ActiveCfg = Release|x64
+		{622186C4-6D7D-4288-B8FD-8F08419181C2}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{622186C4-6D7D-4288-B8FD-8F08419181C2} = {2FA51773-354F-4B9C-80C9-9152102A80EA}
+	EndGlobalSection
+EndGlobal

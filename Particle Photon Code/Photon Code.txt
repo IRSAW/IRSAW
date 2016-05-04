@@ -1,0 +1,136 @@
+//Copy and paste this code in the Particle API.
+
+SYSTEM_MODE(SEMI_AUTOMATIC); //  running Particle Photon in SEMI_Automatic Mode. This means the spark core will only connect to WiFi and not to the Particle Cloud. This means we will use only wifi and not internet
+
+//Setup Variables
+TCPClient client;
+byte server[] = { 192, 168, 0, 102 };   // This is the address of the server (main application)
+byte c;                                 // This will hold the data coming from the server
+int port = 5555;                        // Port number for Client Server communication
+int led = D7;                           // pin D7 is directly connected to the tiny LED on the spark core. useful for debugging
+int motor = A4;                         // the motor is connected to pin A4             
+uint8_t distance = 0;
+int motorVal = 0;                       // variable used to send signal to the motor
+
+//Uncomment the myName assignment based on what photon you are uploading the code to. 
+char myName = 1;                        // Top Left
+//char myName = 2;                        // Top Center
+//char myName = 3;                        // Top Right
+//char myName = 4;                        // Middle Left
+//char myName = 5;                        // Middle Center
+//char myName = 6;                        // Middle Right
+//char myName = 7;                        // Bottom Left
+//char myName = 8;                        // Bottom Right
+
+int blinkRate;
+int state = LOW;
+int lastChange;
+// for pulsing vibrations
+bool isVibrating = false;
+//To set pulsing or gradual vibration.
+bool isPulsing = false;
+// Setup runs once
+void setup()
+{
+  
+  WiFi.connect();                        // Connect to WiFi with the credentials set on the Spark Core // The WiFi Credentials are set on the spark core
+  
+  // Make sure your Serial Terminal app is closed before powering your Core
+  
+  Serial.begin(9600);                    // begin serial communication
+  delay(1000);                           // wait for 1 sec.
+  
+  //Setup the pinmodes
+  pinMode(led, OUTPUT);                  //led pin D7 is output
+  pinMode(motor, OUTPUT);                //motor pin A0 is output
+  lastChange = millis();
+  digitalWrite(motor, state);
+  
+  
+  // Now open your Serial Terminal, and hit any key to continue!
+  //while(!Serial.available()) SPARK_WLAN_Loop();
+  Serial.println("connecting...");
+
+  if (client.connect(server, port))        // Connect to the server
+  {
+    Serial.println("connected");
+    delay(5000);                           // wait 5 seconds
+    RGB.control(true);                     // Get control to the RGB LED on the Spark Core
+    client.flush();                        // Flush client buffer  and clean all unread data
+    client.write(myName);
+
+  }
+  else
+  {
+    Serial.println("connection failed");
+    System.sleep(SLEEP_MODE_DEEP, 2);        //If server connection fails, Put Spark Core in Deep Sleep for 2 seconds, it resets after 2 seconds
+                                            // we use System.sleep() insted of System.reset() as it does not freeze the core and has a better chance of connecting back to the server.
+  }
+}
+
+//Loop Keeps on Running
+void loop()
+{
+  if (client.available())                     //Check for data availability from server to read.
+  {
+    char c = client.read();                   // read the data
+    //Serial.println(c);
+    distance = (uint8_t)c;
+    Serial.println(distance);
+    
+    //for pulsing vibrations
+    if(distance != 0 && distance != 255 && distance != 254 && isPulsing == true)
+    {
+        blinkRate = map(distance, 1, 253, 700, 100);
+        if(lastChange + blinkRate <=millis())
+        {
+            state = !state;
+            lastChange = millis();
+            digitalWrite(motor, state);
+            if(isVibrating)
+            {
+                isVibrating = false;
+                RGB.color(255, 0, 0 );
+            }
+            else
+            {
+               isVibrating = true;
+               RGB.color(0, 0, 255 ); 
+            }
+        }
+    }
+    
+    //for gradual vibration
+    else if(distance != 0 && distance != 255 && distance != 254 && isPulsing == false)
+    {
+        RGB.color(distance, 0, 255 - distance );   // write the data to rgb led to show a gradient from blue to red based on the distance
+        analogWrite(motor, distance); 
+    }
+    
+    else if(distance == 0)
+    {
+        digitalWrite(motor, LOW);
+        RGB.color(0, 0, 255 );
+    }
+    
+    //set pulsing true
+    else if(distance == 255)
+    {
+        isPulsing = true;
+    }
+    
+    //set pulsing false
+    else if(distance == 254)
+    {
+        isPulsing = false;
+    }
+  }
+
+  if (!client.connected())
+  {
+    //System.reset();
+    System.sleep(SLEEP_MODE_DEEP, 2);         //If the client looses connection, reset the core. 
+   //Serial.println();
+    //Serial.println("disconnecting.");
+  }
+}
