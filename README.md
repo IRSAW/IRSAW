@@ -12,19 +12,25 @@ about where the object is in the front based on what the camera sees.
 
 The changes are listed below
 
-1.	Using Intel RealSense Cross Platform API (librealsense) to capture camera data instead of the DCM and the SDK, you don’t need to install anything to use the camera now.
+1. Using Intel RealSense Cross Platform API (librealsense) to capture camera data instead of the DCM and the SDK, you don’t need to install anything to use the camera now.
 
-2.	Ported to Visual Studio 2013. librealsense is not compatible with VS 2012
+2. Ported to Visual Studio 2013. librealsense is not compatible with VS 2012
 
-3.	Ported to Cinder 0.9.0 from 0.8.6
+3. Ported to Cinder 0.9.0 from 0.8.6
 
-4.	You don’t have to build a Vibration Actuator with a button. All the Vibration Actuators are made the same, but the code uploaded to every single Vibration actuator using the Particle Web interface is different (Just one variable has a different value for every single photon for identification purposes) The toggling of the motors can be done using the Laptop app UI or the TouchOSC app running on Android.
+4. You don’t have to build a Vibration Actuator with a button. All the Vibration Actuators are made the same, but the code uploaded to every single Vibration actuator using the Particle Web interface is different (Just one variable has a different value for every single photon for identification purposes) The toggling of the motors can be done using the Laptop app UI or the TouchOSC app running on Android.
 
-5.	You don’t need to save the IP addresses for the Photons in the router. You only need to save the IP Address of the Laptop running the application in the Router.
+5. You don’t need to save the IP addresses for the Photons in the router. You only need to save the IP Address of the Laptop running the application in the Router.
 
-6.	Using an android phone  (Also compatible with an iPhone, but not tested)to control the application (For turning specific motors on/off, changing the range of detection) We use an android app called Touch OSC http://hexler.net/software/touchosc https://play.google.com/store/apps/details?id=net.hexler.touchosc_a  
+6. Using an android phone / iPhone to control the application (For turning specific motors on/off, changing the range of detection) We use an android app called Touch OSC 
 
-7.	Gradual and Pulsing Vibration - using the app you can change the type of vibration feedback you get on your body. It can be gradual or pulsing based on the distance of the object.
+      http://hexler.net/software/touchosc 
+
+      https://play.google.com/store/apps/details?id=net.hexler.touchosc_a
+
+      https://itunes.apple.com/app/touchosc/id288120394
+
+7. Gradual and Pulsing Vibration - using the app you can change the type of vibration feedback you get on your body. It can be gradual or pulsing based on the distance of the object.
 
 #Getting Started
 Download the project from the git repository, Download OpenCV 2.4.9 and Cinder 0.9.0. Set environment Variable for Cinder and OpenCV
@@ -32,11 +38,14 @@ Download the project from the git repository, Download OpenCV 2.4.9 and Cinder 0
 Set the following Environment Variables	
 
 Tip: your Cinder root folder is where you Include folder is, for example in my case, 
+
 C:\Dev\cinder_0.9.0_vc2013, so that is the value of my CINDER_ROOT variable
+
 For Open CV it is C:\opencv\build, so that is the value of my OPENCV_ROOT variable
 
-CINDER_ROOT = <Location of you cinder 0.9.0 directory>
-OPENCV_ROOT = <Location of your OpenCV directory>
+CINDER_ROOT = Location of you cinder 0.9.0 directory
+
+OPENCV_ROOT = Location of your OpenCV directory
 
 librealsense is added as a submodule, so don’t forget to init and update
 
@@ -68,7 +77,7 @@ No need to assign fixed IP addresses to the phone or the Photons on the router.
 Try running ipconfig on the laptop on the command line and confirm the ip address of the Laptop. (Sometimes you have to manually reboot the router for the changes to take effect)
 
 #Touch OSC app configuration
-Once you downloaded the touch osc app from the app store, go in Settings->OSC
+Once you downloaded the touch osc app from the app store, go in Settings, and under connections, tap on OSC
 
 Change the Host address to the IP address of the laptop “192.168.0.102”
 
@@ -86,7 +95,7 @@ Now on the phone, in the TouchOSC app’s settings, go to Layout->Add from Edito
 
 Add the IP address of the Laptop where the Editor is running in the Host field and click download.
 
-This will download the IRSAW TouchOSC UI
+This will download the IRSAW TouchOSC UI from the editor to your phone
 
 Make sure you select SAW_ControlSPulse UI from the Layouts on the app and then tap on Done
 
@@ -99,9 +108,9 @@ The repository has a folder called Particle Photon Code in the file called Photo
 
 Important changes in the code
 
-1.	Photons can now have a gradual or a pulsing change of vibration controlled from the touchosc app on the phone
+1.Photons can now have a gradual or a pulsing change of vibration controlled from the touchosc app on the phone
 
-2.	Every photon identifies itself to the server application running on the laptop and that Identification is stored in the char variable called “myName”. The Value in this variable changes for every photon (the values range from 1 through 8 for 8 vibration actuators) 
+2.Every photon identifies itself to the server application running on the laptop and that Identification is stored in the char variable called “myName”. The Value in this variable changes for every photon (the values range from 1 through 8 for 8 vibration actuators) 
 
       //char myName = 1;                        // Top Left
 
@@ -121,7 +130,7 @@ Important changes in the code
 
 Change the variable value depending on which Vibration Actuator you want to upload the code to.
 
-3. There is no vibration actuator with a physical button to toggle the motors On and Off.
+3.There is no vibration actuator with a physical button to toggle the motors On and Off.
 
 Go to build.particle.io log in, then Create New App and copy and paste the code In the app. The follow the process of flashing the code to photons stated on the particle website
 https://docs.particle.io/guide/getting-started/intro/photon/ 
