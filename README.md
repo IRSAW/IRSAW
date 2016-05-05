@@ -8,7 +8,7 @@ A depth camera is used to see what is in front of a person and the vibration mot
 about where the object is in the front based on what the camera sees. 
 
 
-#This branch of IRSAW is highly modified which a lot of changes.
+#This branch of IRSAW is highly modified with a lot of changes.
 
 The changes are listed below
 
