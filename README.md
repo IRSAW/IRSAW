@@ -8,11 +8,11 @@ A depth camera is used to see what is in front of a person and the vibration mot
 about where the object is in the front based on what the camera sees. 
 
 
-#This branch of IRSAW is highly modified with a lot of changes.
+#This branch of IRSAW has a lot of changes.
 
 The changes are listed below
 
-1. Using Intel RealSense Cross Platform API (librealsense) to capture camera data instead of the DCM and the SDK, you don’t need to install anything to use the camera now.
+1. Using the Open Source Intel RealSense Cross Platform API (librealsense) to capture camera data instead of the DCM and the SDK, you don’t need to install anything to use the camera now.
 
 2. Ported to Visual Studio 2013. librealsense is not compatible with VS 2012
 
@@ -52,6 +52,7 @@ librealsense is added as a submodule, so don’t forget to init and update
 In the git bash, enter the following commands
 
 git submodule init
+
 git submodule update
 
 These two commands will clone the librealsense repository in the thirdparty folder.
@@ -61,6 +62,7 @@ Open the project IRSAW.sln file in visual studio 2013. In the solution explorer,
 In the properties make the following changes
 
 In debug configuration, go to C/C++ -> Code Generation, and change the Runtime Library to Multi-threaded Debug(/MTd)
+
 In Release configuration, go to C/C++ -> Code Generation, and change the Runtime Library to Multi-threaded (/MT)
 
 Apply and save these changes and then compile and run the application, things should run fine and the application window opens. Pressing ‘v’ on the keyboard toggles the visualizer.
