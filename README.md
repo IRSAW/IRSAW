@@ -103,25 +103,25 @@ Important changes in the code
 
 2.	Every photon identifies itself to the server application running on the laptop and that Identification is stored in the char variable called “myName”. The Value in this variable changes for every photon (the values range from 1 through 8 for 8 vibration actuators) 
 
-//char myName = 1;                        // Top Left
+      //char myName = 1;                        // Top Left
 
-//char myName = 2;                        // Top Center
+      //char myName = 2;                        // Top Center
 
-//char myName = 3;                        // Top Right
+      //char myName = 3;                        // Top Right
 
-//char myName = 4;                        // Middle Left
+      //char myName = 4;                        // Middle Left
 
-//char myName = 5;                        // Middle Center
+      //char myName = 5;                        // Middle Center
 
-//char myName = 6;                        // Middle Right
+      //char myName = 6;                        // Middle Right
 
-//char myName = 7;                        // Bottom Left
+      //char myName = 7;                        // Bottom Left
 
-//char myName = 8;                        // Bottom Right
+      //char myName = 8;                        // Bottom Right
 
-So change the variable value depending on which Vibration Actuator you want to upload the code to.
+Change the variable value depending on which Vibration Actuator you want to upload the code to.
 
-3.	There is no vibration actuator with a physical button to toggle the motors On and Off.
+3. There is no vibration actuator with a physical button to toggle the motors On and Off.
 
 Go to build.particle.io log in, then Create New App and copy and paste the code In the app. The follow the process of flashing the code to photons stated on the particle website
 https://docs.particle.io/guide/getting-started/intro/photon/ 
