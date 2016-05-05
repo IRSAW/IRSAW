@@ -1,8 +1,6 @@
-/Debug
-/Release
-/ipch
+vc2013/Debug
+vc2013/Release
 *.opensdf
 *.sdf
-
 *.suo
 *.vcxproj.user
