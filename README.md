@@ -52,6 +52,7 @@ librealsense is added as a submodule, so don’t forget to init and update
 In the git bash, enter the following commands
 
 git submodule init
+
 git submodule update
 
 These two commands will clone the librealsense repository in the thirdparty folder.
